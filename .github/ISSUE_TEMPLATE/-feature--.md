@@ -1,7 +1,7 @@
 ---
 name: "[Feature] "
 about: Feature template
-title: ''
+title: '[Feature]'
 labels: feature
 assignees: ''
 
