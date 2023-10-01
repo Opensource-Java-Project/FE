@@ -42,7 +42,6 @@ const Register = () => {
                 <label>PW :</label>
                 <input type={"password"} maxLength={21} placeholder="비밀번호를 입력하세요." onChange={passwordHandler}/>
                 <input type={"password"} maxLength={21} placeholder="비밀번호를 재입력하세요." onChange={confirmPasswordHandler}/>
-                {/* 특수문자, 대문자 등 하게 할 것인지 한글인지 영어인지 */}
                 {/*  상태 비교해서 다르면 비밀번호 다르다고 출력  */}
                 <button type={"submit"}>제출</button>
             </div>
