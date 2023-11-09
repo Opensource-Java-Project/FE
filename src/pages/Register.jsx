@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkDuplicated, registerUser } from "../api/authApi";
+import { checkDuplicated, postUser } from "../api/authApi";
 import { css, keyframes} from "@emotion/react";
+import { useUserStore } from "../store/userStore";
 import styled from "@emotion/styled";
 
 const Register = () => {
     // 사용자가 입력한 ID와 비밀번호를 저장하는 state
-    const [enteredId, setEnteredId] = useState('');
-    const [enteredPassword, setEnteredPassword] = useState('');
+    const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserStore();
     const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
 
     // 중복 확인 및 비밀번호 확인 메시지와 관련된 state
@@ -56,15 +56,11 @@ const Register = () => {
 
 
         if (isIdDuplicate && enteredPassword === enteredConfirmPassword) {
-            try {
-                const response = await registerUser(enteredId, enteredPassword);
-                if (response.data.success) {
-                    setShowModal(true);
-                } else {
-                    setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
-                }
-            } catch (error) {
-                console.error("회원가입 오류:", error);
+            const response = await postUser(enteredId, enteredPassword);
+            if (response.status === 200) {
+                setShowModal(true);
+            } else {
+                setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
             }
         } else if (!isIdDuplicate) {
             setCheckPasswordMSG("중복 확인을 해주세요.");
@@ -126,8 +122,8 @@ const Register = () => {
                     <button type="button" onClick={duplicateIdHandler}>중복 확인</button>
 
                     <label>PW :</label>
-                    <input type="password" maxLength={21} placeholder="비밀번호를 입력하세요." onChange={passwordHandler} />
-                    <input type="password" maxLength={21} placeholder="비밀번호를 재입력하세요." onChange={confirmPasswordHandler} />
+                    <input type="password" maxLength={21} value={enteredPassword} placeholder="비밀번호를 입력하세요." onChange={passwordHandler} />
+                    <input type="password" maxLength={21} value={enteredConfirmPassword} placeholder="비밀번호를 재입력하세요." onChange={confirmPasswordHandler} />
 
                     <label>{checkPasswordMSG}</label>
                     <button type="submit">제출</button>
