@@ -1,17 +1,21 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { postUser } from "../api/authApi";
-import { useUserStore } from "../store/userStore";
+import { postUser } from "../apis/authApi";
+import { useUserLoginStore } from "../store/useUserInputStore";
+import {useLoggedIn} from "../hooks/useLoggedIn";
+
 
 const Login = () => {
 
     // userState
-    const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserStore()
+    const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserLoginStore()
     // msg state
     const [message, setMessage] = useState('');
     // navigate 함수
     const navigate = useNavigate();
 
+    // 로그인 쿠키 확인 후 있다면 /main으로
+    useLoggedIn('/main');
 
     // Handler
 
@@ -49,12 +53,20 @@ const Login = () => {
     return (
         <>
             <form onSubmit={submitHandler}>
-                <label>ID :</label>
-                <input type="text" maxLength={21} value={enteredId} placeholder="아이디를 입력하세요." onChange={idHandler} onFocus={handleFocus} />
 
-                <label>PW :</label>
-                <input type="password" maxLength={21} value={enteredPassword} placeholder="비밀번호를 입력하세요." onChange={passwordHandler} onFocus={handleFocus}/>
-                <button type="submit">제출</button>
+                <div>
+                    <label>ID :</label>
+                    <input type="text" maxLength={21} value={enteredId} placeholder="아이디를 입력하세요." onChange={idHandler} onFocus={handleFocus} />
+
+                    <label>PW :</label>
+                    <input type="password" maxLength={21} value={enteredPassword} placeholder="비밀번호를 입력하세요." onChange={passwordHandler} onFocus={handleFocus}/>
+                    <button type="submit">제출</button>
+                </div>
+
+                <div>
+                    <p onClick={() => navigate('/main')}>회원가입</p>
+                </div>
+
 
                 <label>{message}</label>
             </form>

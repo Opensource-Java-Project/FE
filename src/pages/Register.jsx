@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { checkDuplicated, postUser } from "../api/authApi";
+import { checkDuplicated, postUser } from "../apis/authApi";
 import { css, keyframes} from "@emotion/react";
-import { useUserStore } from "../store/userStore";
+import { useUserLoginStore } from "../store/useUserInputStore";
 import styled from "@emotion/styled";
+import {useLoggedIn} from "../hooks/useLoggedIn";
 
 const Register = () => {
     // 사용자가 입력한 ID와 비밀번호를 저장하는 state
-    const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserStore();
+    const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserLoginStore();
     const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
 
     // 중복 확인 및 비밀번호 확인 메시지와 관련된 state
@@ -19,6 +20,9 @@ const Register = () => {
 
     // react-router의 navigate 함수
     const navigate = useNavigate();
+
+    // 로그인 쿠키 확인 후 있다면 /main으로
+    useLoggedIn('/main');
 
     // ID 입력 변경 핸들러
     const idHandler = (event) => {
@@ -68,6 +72,21 @@ const Register = () => {
             setCheckPasswordMSG("비밀번호가 다릅니다.");
         }
     };
+
+    // 제출 완료 후
+    useEffect(() => {
+        let timer;
+        if (showModal) {
+            timer = setTimeout(() => {
+                navigate('/login');
+            }, 3000); // 회원가입 성공 모달이 표시된 후 3초 뒤에 자동으로 로그인 페이지로 이동
+        }
+
+        // 클린업 함수
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showModal, navigate]);
 
 
     //css
