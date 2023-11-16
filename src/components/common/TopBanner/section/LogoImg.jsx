@@ -1,12 +1,10 @@
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const LogoImg = () => {
-    const navigate = useNavigate();
-
     return (
-        <>
-            <img src={"asset/img/logo.png"} alt={"logoImg"} onClick={() => navigate('/main')}/>
-        </>
+        <Link to="/">
+            <img src={"asset/img/logo.png"} alt={"logoImg"} />
+        </Link>
     );
 };
 export default LogoImg;

@@ -1,7 +1,6 @@
-// 로고 이미지(클릭 가능), 로그인 || 로그아웃, 프로필(클릭 시 마이페이지)
+// 스크롤 업하면 상단에 유지, 스크롤 다운하면 사라지기, 페이지 맨 위에서는 원래 자리
 import LogoImg from "./section/LogoImg";
 import LoginAndOut from "./section/LoginAndOut";
-import ProfileImg from "./section/ProfileImg";
 const TopBanner = ({children}) => {
 
     // css
@@ -10,7 +9,6 @@ const TopBanner = ({children}) => {
         <>
             <LogoImg />
             <LoginAndOut />
-            <ProfileImg />
             {children}
         </>
     );

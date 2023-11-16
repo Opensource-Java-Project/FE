@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { checkDuplicated, postUser } from "../apis/authApi";
+import { checkDuplicated, postUser } from "../apis/IdPwApi";
 import { css, keyframes} from "@emotion/react";
 import { useUserLoginStore } from "../store/useUserInputStore";
 import styled from "@emotion/styled";
-import {useLoggedIn} from "../hooks/useLoggedIn";
+import {useLoggedInRedirect} from "../hooks/useLoggedInRedirect";
 
 const Register = () => {
     // 사용자가 입력한 ID와 비밀번호를 저장하는 state
@@ -22,7 +22,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     // 로그인 쿠키 확인 후 있다면 /main으로
-    useLoggedIn('/main');
+    useLoggedInRedirect('/');
 
     // ID 입력 변경 핸들러
     const idHandler = (event) => {

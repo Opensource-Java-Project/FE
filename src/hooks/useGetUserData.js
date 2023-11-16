@@ -1,15 +1,15 @@
 import {useEffect} from "react";
-import useUserDataStore from "../store/useUserDataStore";
 import {getUserData} from "../apis/getDataApi";
+import useLoggedInStore from "../store/useLoggedInStore";
 
 const useGetUserData = () => {
-    const setUser = useUserDataStore((state) => state.setUser);
+    const setUserData = useLoggedInStore((state) => state.setLoggedIn);
 
     useEffect(() => {
         getUserData().then(data => {
-            setUser(data);
+            setUserData(data);
         });
-    }, [setUser]);
+    }, [setUserData]);
 };
 
 export default useGetUserData;

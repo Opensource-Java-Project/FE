@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { postUser } from "../apis/authApi";
+import { postUser } from "../apis/IdPwApi";
 import { useUserLoginStore } from "../store/useUserInputStore";
-import {useLoggedIn} from "../hooks/useLoggedIn";
-
+import {useLoggedInRedirect} from "../hooks/useLoggedInRedirect";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
 
@@ -14,8 +14,12 @@ const Login = () => {
     // navigate 함수
     const navigate = useNavigate();
 
-    // 로그인 쿠키 확인 후 있다면 /main으로
-    useLoggedIn('/main');
+    // 로그인 쿠키 확인 후 있다면 /으로
+    useLoggedInRedirect('/');
+
+    // 로그인 훅
+    const { login } = useAuth();
+
 
     // Handler
 
@@ -27,20 +31,34 @@ const Login = () => {
     const passwordHandler = (event) => {
         setEnteredPassword(event.target.value);
     };
+
+
     // 로그인 제출 핸들러
     const submitHandler = async (event) => {
         event.preventDefault();
 
-        const response = await postUser(enteredId, enteredPassword);
+
+
+        //test
+        const response= 200;
+
+
+        // const response = await postUser(enteredId, enteredPassword);
 
         if (response.status === 200) {
             // 제출 성공
-            navigate('/main');
+            navigate('/');
         } else if (response.status === 401){
             // 아이디 혹은 비밀번호를 확인해주세요.
             setMessage('아이디 혹은 비밀번호를 확인해주세요.');
         } else {
             // 다시 제출해주세요.
+
+
+            // test
+            login();
+
+
             setMessage('다시 제출해주세요.');
         }
     }
@@ -64,7 +82,7 @@ const Login = () => {
                 </div>
 
                 <div>
-                    <p onClick={() => navigate('/main')}>회원가입</p>
+                    <p onClick={() => navigate('/register')}>회원가입</p>
                 </div>
 
 
