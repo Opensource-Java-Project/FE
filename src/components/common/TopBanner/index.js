@@ -1,1 +1,1 @@
-export { default as TopBanner } from './TopBanner';
+export * from './TopBanner';
