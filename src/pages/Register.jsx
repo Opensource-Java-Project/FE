@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { checkDuplicated, postUser } from "../apis/IdPwApi";
+import { checkDuplicated, postUser } from "../apis/postDataApi";
 import { css, keyframes} from "@emotion/react";
 import { useUserLoginStore } from "../store/useUserInputStore";
 import styled from "@emotion/styled";

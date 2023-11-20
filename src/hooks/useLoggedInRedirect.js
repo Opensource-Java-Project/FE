@@ -1,4 +1,4 @@
-// 로그인 쿠키 확인 후 지정한 path로 리디렉션 하는 커스텀 훅
+// 로그인 확인 후 지정한 path로 리디렉션 하는 커스텀 훅
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserDataStore from "../store/useLoggedInStore";
