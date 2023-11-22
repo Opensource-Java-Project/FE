@@ -4,6 +4,74 @@ import { postUser } from "../apis/postDataApi";
 import { useUserLoginStore } from "../store/useUserInputStore";
 import {useLoggedInRedirect} from "../hooks/useLoggedInRedirect";
 import useAuth from "../hooks/useAuth";
+import styled from "@emotion/styled";
+import {animated, useSpring} from "@react-spring/web";
+
+
+const LoginWrapper = styled.div`
+  text-align: center;
+  margin-top: 15%;
+  display: inline-block;
+  width: 100%;
+`;
+const LogoImage = styled.img`
+  margin-bottom: 25px;
+  width: 180px;
+  height: auto;
+`;
+const InputDiv = styled.div `
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const ActionDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%; // 필요한 너비 설정
+`;
+const Input = styled.input`
+  background-color: #eee;
+  border: none;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 10px 15px;
+  margin: 8px;
+`;
+const SignUp = styled.p`
+  padding: 6px 10px;
+  letter-spacing: 1px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px 12px;
+  display: block;
+  background-color: #ff97a8;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  &:active{
+    box-shadow: none;
+    transition: background-color 0.2s ease-out;
+  }
+`;
+const SubmitButton = styled.button`
+  padding: 6px 10px;
+  letter-spacing: 1px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px 12px;
+  display: block;
+  background-color: #ff97a8;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  &:active{
+    box-shadow: none;
+    transition: background-color 0.2s ease-out;
+  }
+`;
+const MSGLabel = styled.label`
+  color: #707070;
+`;
+
+
 
 const Login = () => {
 
@@ -42,8 +110,8 @@ const Login = () => {
         //test
         const response= 200;
 
-
-        // const response = await postUser(enteredId, enteredPassword);
+        // 백엔드 로그인 요청
+        // const response = await login(enteredId, enteredPassword);
 
         if (response.status === 200) {
             // 제출 성공
@@ -55,8 +123,13 @@ const Login = () => {
             // 다시 제출해주세요.
 
 
+
+
             // test
             login();
+
+
+
 
 
             setMessage('다시 제출해주세요.');
@@ -68,25 +141,33 @@ const Login = () => {
     }
 
 
+    // 메시지 애니메이션
+    const msgAnimation = useSpring({
+        to: { opacity: 1, transform: 'translateX(0)' },
+        from: { opacity: 0, transform: 'translateX(-10%)' },
+        reset: true, // 메시지 변경시마다 애니메이션 재시작
+    });
+
     return (
         <>
             <form onSubmit={submitHandler}>
+                <LoginWrapper>
+                    <LogoImage src={"/asset/img/logo.png"} alt={"logoImg"} />
+                    <div>
+                        <InputDiv>
+                            <Input type="email" minLength={7} maxLength={21} value={enteredId} placeholder="Email" onChange={idHandler} onFocus={handleFocus} />
+                            <Input type="password" minLength={7} maxLength={21} value={enteredPassword} placeholder="Password" onChange={passwordHandler} onFocus={handleFocus}/>
+                        </InputDiv>
 
-                <div>
-                    <label>ID :</label>
-                    <input type="text" maxLength={21} value={enteredId} placeholder="아이디를 입력하세요." onChange={idHandler} onFocus={handleFocus} />
-
-                    <label>PW :</label>
-                    <input type="password" maxLength={21} value={enteredPassword} placeholder="비밀번호를 입력하세요." onChange={passwordHandler} onFocus={handleFocus}/>
-                    <button type="submit">제출</button>
-                </div>
-
-                <div>
-                    <p onClick={() => navigate('/register')}>회원가입</p>
-                </div>
-
-
-                <label>{message}</label>
+                        <ActionDiv>
+                            <SignUp onClick={() => navigate('/register')}>Sign Up</SignUp>
+                            <SubmitButton type="submit">Sign In</SubmitButton>
+                        </ActionDiv>
+                    </div>
+                    <animated.div style={msgAnimation}>
+                        <MSGLabel>{message}</MSGLabel>
+                    </animated.div>
+                </LoginWrapper>
             </form>
         </>
     );
