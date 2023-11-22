@@ -41,7 +41,6 @@ export const Reservation = ({ onSave, onClose, getReservedDates }) => {
     const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
     const [reservedDates, setReservedDates] = useState([]);
 
-
     // for test
     useEffect(() => {
         const dummyReservedDates = ["2023-12-24", "2023-12-25", "2023-12-31"];
@@ -67,6 +66,13 @@ export const Reservation = ({ onSave, onClose, getReservedDates }) => {
         );
     };
 
+    const isRangeValid = (start, end) => {
+        if (!start || !end) return true;
+        return !reservedDates.some(date =>
+            moment(date).isBetween(start, end, 'day', '[]')
+        );
+    };
+
     const handleDateSelect = (value) => {
         const selectedDate = moment(value);
         const startMoment = selectedRange.start ? moment(selectedRange.start) : null;
@@ -79,6 +85,12 @@ export const Reservation = ({ onSave, onClose, getReservedDates }) => {
             // 선택된 날짜가 현재 시작 날짜보다 이전인 경우
             setSelectedRange({ start: value, end: null });
         } else {
+            // 선택한 범위가 예약이 되어있을 경우 null로 해줌
+            const isValid = isRangeValid(startMoment, selectedDate);
+            if (!isValid) {
+                setSelectedRange({start: null, end: null});
+                return;
+            }
             // 그 외의 경우, 선택된 날짜를 종료 날짜로 설정
             setSelectedRange({ ...selectedRange, end: value });
         }
@@ -117,6 +129,7 @@ export const Reservation = ({ onSave, onClose, getReservedDates }) => {
                 minDetail="month"
                 maxDetail="month"
                 tileDisabled={({ date, view }) => view === 'month' && isDateReserved(date)}
+                formatDay ={(locale, date) => moment(date).format('DD')} // 일 빼기
                 tileClassName={getTileClassName}
             />
             <Input
