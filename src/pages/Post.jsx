@@ -5,6 +5,8 @@ import {postDate} from "../apis/postDataApi";
 import {useParams} from "react-router-dom";
 import {Reservation} from "../components/Reservation/Reservation";
 import styled from "@emotion/styled";
+import {useUserStore} from "../store/useUserStore";
+import Register from "./Register";
 
 
 const Container = styled.div`
@@ -13,6 +15,7 @@ const Container = styled.div`
   grid-template-rows: 110px 1fr ;
   height: 100vh;
   width: 100vw;
+  //overflow-y: auto;
 `;
 const Contents = styled.div`
   grid-row: 2/2;
@@ -34,7 +37,6 @@ const Img = styled.img`
   max-width: 100%;
 
 `;
-
 const NavigationButtonDiv = styled.div`
   position: absolute; // 절대 위치 설정
   top: 50%; // 컨테이너의 중간에 버튼을 배치
@@ -51,7 +53,6 @@ const LeftNavButton = styled.button`
   margin-left: 25px;
   background: url(https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-slider-left-4c0e713bfa2cd12bd959e6dd9ef456cd6fc094953c41e605f6b9a59bc1680686.svg) no-repeat;
 `;
-
 const RightNavButton = styled.button`
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -59,6 +60,68 @@ const RightNavButton = styled.button`
   padding: 10px;
   margin-right: 15px;
   background: url(https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-slider-right-134c53f44716c3bef227ec30da385b4b09c9c068d339a617a23093718f379d02.svg) no-repeat;
+`;
+
+const ContentP = styled.p `
+  margin-top: 30px;
+  margin-bottom: 50px;
+`;
+
+const PricesLabel = styled.label`
+  background-color: #efefef;
+  border-radius: 15px;
+  padding: 10px 10px;
+  box-shadow: inset 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+`;
+
+const ReservationDiv = styled.div`
+  text-align: center;
+  margin-top: 50px;
+  border-style: solid;
+  border-color: #8c8c8c;
+  border-radius: 10px;
+  border-width: 2px;
+  padding: 12px;
+`;
+
+// 테이블 스타일 정의
+const StyledTable = styled.table`
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+// 테이블 셀 스타일 정의
+const TableCell = styled.td`
+  border: 1px solid #ddd;
+  padding: 8px;
+`;
+
+// 테이블 행 스타일 정의
+const TableRow = styled.tr`
+  &:nth-of-type(even) {
+    background-color: #f2f2f2;
+  }
+
+  &:hover {
+    background-color: #ddd;
+  }
+`;
+const ReservationButton = styled.button`
+  margin-top: 30px;
+  padding: 6px 10px;
+  letter-spacing: 1px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  display: block;
+  color: white;
+  background-color: #ff97a8;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  &:active{
+    box-shadow: none;
+    transition: background-color 0.2s ease-out;
+  }
 `;
 
 
@@ -70,10 +133,11 @@ const Post = () => {
     const [post, setPost] = useState(null);
 
     const { postId } = useParams(); // URL에서 postId 파라미터 추출
-
     // Image Swapping State
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // 사용자 인증 상태
+    const postAuth = useUserStore(state => state.userId);
 
     // 사진 스왑 함수
     const handleNextImage = () => {
@@ -90,23 +154,24 @@ const Post = () => {
     };
 
 
-
-
     // 예약 정보 전송 로직
     const handleReservationSubmit = async (reservationData) => {
-        console.log(reservationData);
         await postDate(reservationData, postId, setOpen);
     };
+
 
     // 백엔드 연결
     // useEffect(() => {
     //     const fetchPost = async () => {
-    //         const data = await getPost(); // postId를 사용하여 특정 게시글 데이터 가져오기, postId 제거함
+    //         const data = await getPost(postId); // postId를 사용하여 특정 게시글 데이터 가져오기
     //         setPost(data);
+    //
+    //
     //     };
     //     fetchPost();
+    //
+    // }, [postId]);
 
-    // }, []);
 
 
     // 더미 데이터 테스트
@@ -114,30 +179,36 @@ const Post = () => {
         // 더미 데이터 게시글
         const dummyData = [
             {
-                id: 1,
+                userId: 1,
+                postId: 1,
                 boardTitle: "게시글 제목",
-                boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png", "/asset/img/testPostImg2.png"],
+                boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
                 boardContents: "게시글 내용",
                 boardPrices:"5000원",
-                reservationList: "상준 11월 25일"
+                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }, { start: '2023-11-30', end:'2023-11-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
             },
             {
-                id: 2,
+                userId: 2,
+                postId: 2,
                 boardTitle: "게시글 제목2",
                 boardImage: ["/asset/img/logo.png"],
                 boardContents: "게시글 내용2",
                 boardPrices:"5,000,000원",
-                reservationList: "상준 11월 25임"
+                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }]
             }
         ];
+
         const fetchPost = () => {
+
             // postId에 해당하는 게시글 찾기
-            const foundPost = dummyData.find(p => p.id === parseInt(postId));
+            const foundPost = dummyData.find(p => p.postId === parseInt(postId));
             setPost(foundPost); // 찾은 게시글을 상태로 설정
+
         };
         fetchPost();
-    }, [postId]);
+    }, []);
     //
+
 
 
     // 게시글이 null일 때 처리
@@ -148,8 +219,40 @@ const Post = () => {
     // 이미지가 한 개 이상 있을 때만 버튼 표시
     const shouldShowNavigationButtons = post.boardImage.length > 1;
 
+
+
+    // 사용자 인증 상태 확인 후 맞다면 상세메시지 표시
+    const isPostAuth = parseInt(postAuth) === post.userId;
+
+
+
+    // 예약 테이블
+    const ReservationTable = ({ reservations, isPostAuth }) => {
+        return (
+            <StyledTable>
+                <thead>
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    {isPostAuth && <th>Content</th>}
+                </tr>
+                </thead>
+                <tbody>
+                {reservations.map((reservation, index) => (
+                    <TableRow key={index}>
+                        <TableCell>{reservation.start}</TableCell>
+                        <TableCell>{reservation.end}</TableCell>
+                        {isPostAuth && <TableCell>{reservation.content}</TableCell>}
+                    </TableRow>
+                ))}
+                </tbody>
+            </StyledTable>
+        );
+    };
+
+
     return (
-        <Container key={post.id}>
+        <Container key={post.postId}>
             <Contents>
                 <ImageContainer>
                     <Img src={post.boardImage[currentImageIndex]} alt="Post" width={"500px"}/>
@@ -162,14 +265,22 @@ const Post = () => {
                 </ImageContainer>
                 <h1>{post.boardTitle}</h1>
                 <hr/>
-                <p>{post.boardContents}</p>
-                <p>{post.boardPrices}</p>
+                <ContentP>{post.boardContents}</ContentP>
+                <PricesLabel>{post.boardPrices}</PricesLabel>
+                <ReservationDiv>
+                    <label>예약 현황</label>
+                    <hr/>
+                    <ReservationTable reservations={post.reservationList} isPostAuth={isPostAuth}  />
+                </ReservationDiv>
 
                 <div>
-                    {/* ... 게시글 내용 ... */}
-                    <button onClick={toggleReservationOverlay}>예약하기</button>
+
+                </div>
+
+                <div>
+                    <ReservationButton onClick={toggleReservationOverlay}>예약하기</ReservationButton>
                     {isOpen && (
-                        <Reservation onSave={handleReservationSubmit} onClose={() => setOpen(false)} />
+                        <Reservation onSave={handleReservationSubmit} onClose={() => setOpen(false)} reservations = {post.reservationList}/>
                     )}
                 </div>
             </Contents>
@@ -177,8 +288,6 @@ const Post = () => {
     );
 
 
-    //TODO:
-    // 해당 게시글 유저가 아니면 수정 및 삭제, 예약테이블 상세메시지(보안) 표시 X
 
 
 };
