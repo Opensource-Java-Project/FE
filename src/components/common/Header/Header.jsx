@@ -24,7 +24,7 @@ const RightContainer = styled.div`
   margin-right: 20px;
 `
 
-export const TopBanner = ({children}) => {
+export const Header = ({children}) => {
 
     return (
         <Wrapper>
@@ -36,4 +36,4 @@ export const TopBanner = ({children}) => {
         </Wrapper>
     );
 };
-// export default TopBanner;
+
