@@ -13,7 +13,7 @@ const ProfileImg = () => {
     // const user = useUserDataStore();
     // dummy data
     const user = {
-        id:1
+        id:"wns2349@naver.com"
     }
 
 

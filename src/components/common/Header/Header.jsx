@@ -2,6 +2,8 @@
 import LogoImg from "./section/LogoImg";
 import LoginAndOut from "./section/LoginAndOut";
 import styled from "@emotion/styled";
+import UploadButton from "./section/UploadButton";
+import React from "react";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -29,6 +31,7 @@ export const Header = ({children}) => {
     return (
         <Wrapper>
             <LogoImg />
+            <UploadButton/>
             <RightContainer>
                 <LoginAndOut />
                 {children}

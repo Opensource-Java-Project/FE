@@ -2,12 +2,15 @@ import instance from "../apis/instance";
 import useLoggedInStore from "../store/useLoggedInStore";
 import {useUserStore} from "../store/useUserStore";
 import {postLogin} from "../apis/postDataApi";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 const useAuth = () => {
     const { setLoggedIn } = useLoggedInStore();
     // 현재 로그인한 사용자 정보
     const { setUser } = useUserStore();
-
+    // 라우팅
+    const navigate = useNavigate();
 
     // 토큰 유효성 검사 후 zustand 전역 LoggenIn 상태 업데이트
     const checkLoginStatus = async (token) => {
@@ -38,7 +41,8 @@ const useAuth = () => {
         localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
         localStorage.removeItem('userId'); // userId 파기
         setLoggedIn(false); // 로그아웃 상태 업데이트
-
+        setUser(null);
+        navigate('/');
 
         try {
             // 백엔드 로그아웃 엔드포인트와 통신
@@ -49,6 +53,9 @@ const useAuth = () => {
             localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
             localStorage.removeItem('userId'); // userId 파기
             setLoggedIn(false); // 로그아웃 상태 업데이트
+            setUser(null);
+            navigate('/');
+
         } catch (error) {
             console.error('Logout failed:', error);
         }
@@ -60,7 +67,7 @@ const useAuth = () => {
         // test
         setLoggedIn(true);
         // test for userId
-        const userId = "1";
+        const userId = "wns2349@naver.com";
         setUser(userId);
 
 

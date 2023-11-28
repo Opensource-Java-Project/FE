@@ -33,10 +33,12 @@ export const postLogin = async (email, password) => {
 export const postDate = async (reservationData, postId, setOpen) => {
     try {
         const response = await instance.post('/reservations', {
-            postId: postId, // 게시글 ID는 함수의 파라미터로 전달됩니다.
+            boardIndex: postId, // 게시글 ID는 함수의 파라미터로 전달됩니다.
             ...reservationData
         });
+        //test console
         console.log('Reservation submitted:', response.data);
+
         setOpen(false); // 예약창 닫기, 이 함수도 파라미터로 전달됩니다.
     } catch (error) {
         console.error('Error submitting reservation:', error);
@@ -44,3 +46,18 @@ export const postDate = async (reservationData, postId, setOpen) => {
     }
 
 };
+
+
+
+// 업로드 api
+// 멀티파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐.
+export const postUpload = async (formData) => {
+    try {
+        return await instance.post('/upload', formData);
+    } catch (error) {
+        console.error('Error submitting reservation:', error);
+    }
+};
+
+
+// try...catch 문 제거하고 각 API 호출할 때 try...catch 문을 사용하여 에러를 잡으려고 했으나 수정하기 매우 귀찮으므로 패스.
