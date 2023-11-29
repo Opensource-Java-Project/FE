@@ -112,25 +112,17 @@ const Login = () => {
 
         // 백엔드 로그인 요청
         const response = await login(enteredId, enteredPassword);
-
-        if (response.status === 200) {
+        if (response === 200) {
             // 제출 성공
             navigate('/');
-        } else if (response.status === 401){
+        } else if (response === 401){
             // 아이디 혹은 비밀번호를 확인해주세요.
             setMessage('아이디 혹은 비밀번호를 확인해주세요.');
         } else {
             // 다시 제출해주세요.
 
-
-
-
             // // test
             // login();
-
-
-
-
 
             setMessage('다시 제출해주세요.');
         }
