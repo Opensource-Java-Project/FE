@@ -171,25 +171,30 @@ const Register = () => {
         // 로그인 성공 modal 테스트
         // setShowModal(true);
 
-        try {
-            const response = await checkDuplicated(enteredId);
+        const submitHandler = async (event) => {
+            event.preventDefault();
+            setCheckPasswordMSG('');
 
-            // 성공적인 응답 처리
-            setIsIdDuplicate(false); // 중복이 아님
-            setCheckPasswordMSG('중복된 이메일이 아닙니다.');
-        } catch (error) {
-            // 오류 처리 (중복된 이메일 또는 기타 오류)
-            if (error.response && error.response.status === 409) {
-                // 중복된 이메일일 때의 처리
-                setIsIdDuplicate(true);
-                setCheckPasswordMSG('중복된 이메일입니다.');
-            } else {
-                // 기타 오류 처리
-                console.error('Error during Email duplication check:', error);
-                setCheckPasswordMSG('이메일 중복 확인 중 오류가 발생했습니다.');
+            try {
+                const response = await postUser(enteredId, enteredPassword);
+                if (response && response.status === 200) {
+                    setShowModal(true);
+                } else {
+                    // 정상적인 응답이지만 상태 코드가 200이 아닌 경우
+                    setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
+                }
+            } catch (error) {
+                if (error.response) {
+                    // 서버로부터의 응답이 있는 경우
+                    console.error('Error:', error.response);
+                    setCheckPasswordMSG("회원가입 실패: " + error.response.data);
+                } else {
+                    // 서버로부터의 응답이 없는 경우 (네트워크 문제 등)
+                    console.error('Error:', error);
+                    setCheckPasswordMSG("회원가입 중 오류가 발생했습니다.");
+                }
             }
-        }
-    };
+        };
 
     // 제출 완료 후
     useEffect(() => {
