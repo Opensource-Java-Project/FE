@@ -3,7 +3,7 @@ import useLoggedInStore from "../store/useLoggedInStore";
 import {useUserStore} from "../store/useUserStore";
 import {postLogin} from "../apis/postDataApi";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+
 
 const useAuth = () => {
     const { setLoggedIn } = useLoggedInStore();
@@ -38,11 +38,11 @@ const useAuth = () => {
 
 
         //test, false = logut 상태, true = login상태
-        localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
-        localStorage.removeItem('userId'); // userId 파기
-        setLoggedIn(false); // 로그아웃 상태 업데이트
-        setUser(null);
-        navigate('/');
+        // localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
+        // localStorage.removeItem('userId'); // userId 파기
+        // setLoggedIn(false); // 로그아웃 상태 업데이트
+        // setUser(null);
+        // navigate('/');
 
         try {
             // 백엔드 로그아웃 엔드포인트와 통신
@@ -65,10 +65,10 @@ const useAuth = () => {
     const login = async (email, password) => {
 
         // test
-        setLoggedIn(true);
+        // setLoggedIn(true);
         // test for userId
-        const userId = "wns2349@naver.com";
-        setUser(userId);
+        // const userId = "wns2349@naver.com";
+        // setUser(userId);
 
 
         try {
@@ -78,7 +78,7 @@ const useAuth = () => {
                 const token = response.data.token; // 백엔드에서 생성한 토큰 저장
 
                 // 백엔드 연결
-                // const userId = response.data.userId;
+                const userId = response.data.userId;
 
 
 
