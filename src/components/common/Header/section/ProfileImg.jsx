@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-// import useUserDataStore from "../../../../store/useUserDataStore";
+import useUserDataStore from "../../../../store/useUserDataStore";
 import styled from "@emotion/styled";
 
 const ProfileImage = styled.img`
@@ -10,11 +10,11 @@ const ProfileImage = styled.img`
 
 const ProfileImg = () => {
     const navigate = useNavigate();
-    // const user = useUserDataStore();
+    const user = useUserDataStore();
     // dummy data
-    const user = {
-        id:"wns2349@naver.com"
-    }
+    // const user = {
+    //     id:"wns2349@naver.com"
+    // }
 
 
     return (

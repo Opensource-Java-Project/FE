@@ -106,12 +106,12 @@ const Login = () => {
         event.preventDefault();
 
 
-
-        //test
-        const response= 200;
+        //
+        // //test
+        // const response= 200;
 
         // 백엔드 로그인 요청
-        // const response = await login(enteredId, enteredPassword);
+        const response = await login(enteredId, enteredPassword);
 
         if (response.status === 200) {
             // 제출 성공
@@ -125,8 +125,8 @@ const Login = () => {
 
 
 
-            // test
-            login();
+            // // test
+            // login();
 
 
 

@@ -59,19 +59,19 @@ const Upload = () => {
         try {
 
             // 백엔드 연결
-            // const response = await postUpload(formData);
-            // if (response.status === 200) {
-            //     setMessage('업로드 성공');
-            //     navigate('/');
-            // } else {
-            //     console.log('업로드 실패');
-            //     setMessage('업로드 실패');
-            // }
+            const response = await postUpload(formData);
+            if (response.status === 200) {
+                setMessage('업로드 성공');
+                navigate('/');
+            } else {
+                console.log('업로드 실패');
+                setMessage('업로드 실패');
+            }
 
 
-            // test
-            navigate('/');
-            setMessage("업로드 성공");
+            // // test
+            // navigate('/');
+            // setMessage("업로드 성공");
 
 
 
