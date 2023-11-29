@@ -171,19 +171,23 @@ const Register = () => {
         // 로그인 성공 modal 테스트
         // setShowModal(true);
 
+        try {
+            const response = await checkDuplicated(enteredId);
 
-
-        if (isIdDuplicate && enteredPassword === enteredConfirmPassword) {
-            const response = await postUser(enteredId, enteredPassword);
-            if (response.status === 200) {
-                setShowModal(true);
+            // 성공적인 응답 처리
+            setIsIdDuplicate(false); // 중복이 아님
+            setCheckPasswordMSG('중복된 이메일이 아닙니다.');
+        } catch (error) {
+            // 오류 처리 (중복된 이메일 또는 기타 오류)
+            if (error.response && error.response.status === 409) {
+                // 중복된 이메일일 때의 처리
+                setIsIdDuplicate(true);
+                setCheckPasswordMSG('중복된 이메일입니다.');
             } else {
-                setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
+                // 기타 오류 처리
+                console.error('Error during Email duplication check:', error);
+                setCheckPasswordMSG('이메일 중복 확인 중 오류가 발생했습니다.');
             }
-        } else if (!isIdDuplicate) {
-            setCheckPasswordMSG("중복 확인을 해주세요.");
-        } else if (enteredPassword !== enteredConfirmPassword) {
-            setCheckPasswordMSG("비밀번호가 다릅니다.");
         }
     };
 
