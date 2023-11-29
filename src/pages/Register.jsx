@@ -162,39 +162,30 @@ const Register = () => {
         setCheckPasswordMSG('');
     };
 
-    // 회원가입 폼 제출 핸들러
     const submitHandler = async (event) => {
         event.preventDefault();
         setCheckPasswordMSG('');
 
-
-        // 로그인 성공 modal 테스트
-        // setShowModal(true);
-
-        const submitHandler = async (event) => {
-            event.preventDefault();
-            setCheckPasswordMSG('');
-
-            try {
-                const response = await postUser(enteredId, enteredPassword);
-                if (response && response.status === 200) {
-                    setShowModal(true);
-                } else {
-                    // 정상적인 응답이지만 상태 코드가 200이 아닌 경우
-                    setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
-                }
-            } catch (error) {
-                if (error.response) {
-                    // 서버로부터의 응답이 있는 경우
-                    console.error('Error:', error.response);
-                    setCheckPasswordMSG("회원가입 실패: " + error.response.data);
-                } else {
-                    // 서버로부터의 응답이 없는 경우 (네트워크 문제 등)
-                    console.error('Error:', error);
-                    setCheckPasswordMSG("회원가입 중 오류가 발생했습니다.");
-                }
+        try {
+            const response = await postUser(enteredId, enteredPassword);
+            if (response && response.status === 200) {
+                setShowModal(true);
+            } else {
+                // 정상적인 응답이지만 상태 코드가 200이 아닌 경우
+                setCheckPasswordMSG("회원가입 실패. 다시 시도해주세요.");
             }
-        };
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터의 응답이 있는 경우
+                console.error('Error:', error.response);
+                setCheckPasswordMSG("회원가입 실패: " + error.response.data);
+            } else {
+                // 서버로부터의 응답이 없는 경우 (네트워크 문제 등)
+                console.error('Error:', error);
+                setCheckPasswordMSG("회원가입 중 오류가 발생했습니다.");
+            }
+        }
+    };
 
     // 제출 완료 후
     useEffect(() => {
