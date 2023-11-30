@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { postUser } from "../apis/postDataApi";
 import { useUserLoginStore } from "../store/useUserInputStore";
 import {useLoggedInRedirect} from "../hooks/useLoggedInRedirect";
 import useAuth from "../hooks/useAuth";

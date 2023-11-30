@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import styled from "@emotion/styled";
 import {useUserStore} from "../../../../store/useUserStore";
 import {useNavigate} from "react-router-dom";
+import useMessageStore from "../../../../store/useMessageStore";
 
 const StyledButton = styled(animated.button)`
   padding: 20px 60px;
@@ -64,10 +65,47 @@ const BubbleRight2 = styled(animated.div)`
   background-color: #3a3a3a;
 `;
 
+const MSG = styled.div`
+  position: fixed;
+  //translateX(55vw);
+  color: #707070;
+`;
+
+
 const UploadButton = () => {
     const [hover, setHover] = React.useState(false);
+    const [active, setActive] = React.useState(false);
     const userId = useUserStore(state => state.userId);
     const navigate = useNavigate();
+
+
+
+    // 업로드 성공 메시지 상태
+    const message = useMessageStore(state => state.message);
+    const setMessage = useMessageStore(state => state.setMessage);
+    // 업로드 성공 후 메시지
+    useEffect(() => {
+        if (message) {
+            // 메시지가 있으면 3초 후에 메시지를 초기화합니다.
+            const timer = setTimeout(() => {
+                setMessage('');
+            }, 2000);
+
+            // 컴포넌트가 언마운트될 때 타이머를 제거합니다.
+            return () => clearTimeout(timer);
+        }
+    }, [message, setMessage]);
+
+    // 메시지 애니메이션
+    const msgAnimation = useSpring({
+        to: { opacity: 1, transform: 'translateX(40vw)' },
+        from: { opacity: 0, transform: 'translateX(37vw)' },
+        reset: true, // 메시지 변경시마다 애니메이션 재시작
+    });
+
+
+
+
 
     // 이벤트 핸들러
     const submitHandler = () => {
@@ -112,20 +150,34 @@ const UploadButton = () => {
 
     // 버튼 애니메이션
     const buttonAnimation = useSpring({
-        transform: hover ? 'scale(1.1)' : 'scale(1)',
+        transform: active? 'scale(0.95)' : hover ? 'scale(1.1)' : 'scale(1)',
         config: { tension: 300, friction: 10 }
     });
-
+    // 클릭 핸들러
+    const handleMouseDown = () => setActive(true);
+    const handleMouseUp = () => setActive(false);
 
 
 
     return (
         <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-            <StyledButton style={buttonAnimation} onClick={submitHandler} >업로드</StyledButton>
+            <StyledButton
+                style={buttonAnimation}
+                onClick={submitHandler}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+            >업로드</StyledButton>
             <BubbleLeft style={leftBubbleAnimation} />
             <BubbleLeft2 style={leftBubbleAnimation2}/>
             <BubbleRight style={rightBubbleAnimation} />
             <BubbleRight2 style={rightBubbleAnimation2} />
+
+            <animated.div style={msgAnimation}>
+                {message && <MSG>{message}</MSG>}
+            </animated.div>
+
+
         </div>
     );
 };

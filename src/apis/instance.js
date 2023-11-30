@@ -17,5 +17,31 @@ instance.interceptors.response.use(
     }
 );
 
+// 요청 인터셉터 추가
+instance.interceptors.request.use(
+    config => {
+        // 요청을 보내기 전에 수행할 작업
+        console.log('Request Interceptor:', config);
+        // 필요하다면 요청 본문을 수정하거나, 헤더를 추가할 수 있음
+        return config;
+    },
+    error => {
+        // 요청 에러가 발생했을 때 수행할 작업
+        return Promise.reject(error);
+    }
+);
+
+// 응답 인터셉터 추가
+instance.interceptors.response.use(
+    response => {
+        // 응답 데이터를 처리하기 전에 수행할 작업
+        console.log('Response Interceptor:', response);
+        return response;
+    },
+    error => {
+        // 응답 에러가 발생했을 때 수행할 작업
+        return Promise.reject(error);
+    }
+);
 
 export default instance;

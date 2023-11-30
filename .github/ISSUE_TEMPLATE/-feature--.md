@@ -6,10 +6,8 @@ labels: feature
 assignees: ''
 
 ---
-
 ## 📌 상세 내용
-&nbsp; - 
-
+&nbsp; -
 <br/><br/>
 ## 🌠 구현 내용
 - [ ] 
