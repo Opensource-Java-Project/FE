@@ -39,6 +39,7 @@ const Img = styled.img`
 
 const Title = styled.h3`
   margin: 5px;
+  color: #232323;
 `;
 
 const Price = styled.label`
