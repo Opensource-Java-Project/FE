@@ -17,7 +17,7 @@ const slideUp = keyframes`
       to {
         transform: translateY(0);
       }
-    `;
+`;
 
 const overlayStyle = css`
       position: fixed;
