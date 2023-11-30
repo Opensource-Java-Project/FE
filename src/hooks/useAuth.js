@@ -85,7 +85,7 @@ const useAuth = () => {
 
                 // localStorage.setItem('userId', userId); // 해당 사용자 인증 로컬 스토리지, 해당 코드 zustand로 대체 따라서 안씀
 
-                await checkLoginStatus(token); // 토큰 인증 후 로그인 상태 업데이트
+                // await checkLoginStatus(token); // 토큰 인증 후 로그인 상태 업데이트 ,
                     return 200;
             } else {
                 //로그인 실패 표새
@@ -97,6 +97,7 @@ const useAuth = () => {
             console.error('Login failed:', error);
         }
     };
+
 
 
     return { checkLoginStatus, logout, login };
