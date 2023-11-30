@@ -19,7 +19,6 @@ const UploadWrapper = styled.div`
   border-width: 2px;
   border-color: #c2c2c2;
 `;
-
 const UploadArea = styled.div`
   border: 2px dashed #ccc;
   background-color: #f1f1f1;
