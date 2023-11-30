@@ -63,11 +63,11 @@ const useAuth = () => {
 
     // 로그인 함수
     const login = async (email, password) => {
-        // test
-        // setLoggedIn(true);
+
         // test for userId
         // const userId = "wns2349@naver.com";
         // setUser(userId);
+        // setLoggedIn(true);
 
         try {
             const response = await postLogin(email, password); // 로그인 api
@@ -82,7 +82,7 @@ const useAuth = () => {
 
                 localStorage.setItem('isLoggedInToken', token);  // 로그인 인증 로컬 스토리지
                 setUser(userId);
-
+                setLoggedIn(true);
                 // localStorage.setItem('userId', userId); // 해당 사용자 인증 로컬 스토리지, 해당 코드 zustand로 대체 따라서 안씀
 
                 // await checkLoginStatus(token); // 토큰 인증 후 로그인 상태 업데이트 ,
