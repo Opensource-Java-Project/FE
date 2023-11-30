@@ -14,12 +14,12 @@ const StyledButton = styled(animated.button)`
   font-size: 15px;
   display: block;
   background-color: #3a3a3a;
-
+  transition: background-color 0.3s ease-out;
   &:hover {
     background-color: #ff97a8;
     color: #3a3a3a;
     transform: scale(1.05); // 호버 시 확대
-    transition: background-color 0.3s ease-out;
+
   }
 
   &:active {
@@ -67,7 +67,7 @@ const BubbleRight2 = styled(animated.div)`
 
 const MSG = styled.div`
   position: fixed;
-  //translateX(55vw);
+  margin-left: 40px;
   color: #707070;
 `;
 
@@ -98,8 +98,8 @@ const UploadButton = () => {
 
     // 메시지 애니메이션
     const msgAnimation = useSpring({
-        to: { opacity: 1, transform: 'translateX(40vw)' },
-        from: { opacity: 0, transform: 'translateX(37vw)' },
+        to: { opacity: 1, transform: 'translateY(3vh)' },
+        from: { opacity: 0, transform: 'translateY(0vh)' },
         reset: true, // 메시지 변경시마다 애니메이션 재시작
     });
 
@@ -141,8 +141,8 @@ const UploadButton = () => {
     });
     // 오른쪽 버블 애니메이션2
     const rightBubbleAnimation2 = useSpring({
-        to: { opacity: hover ? 1 : 0, transform: hover ? 'translateX(60vw)' : 'translateX(55vw)', backgroundColor: hover ? '#ff97a8' : '#3a3a3a' },
-        from: { opacity: 1, transform: 'translateX(60vw)' },
+        to: { opacity: hover ? 1 : 0, transform: hover ? 'translateX(62vw)' : 'translateX(57vw)', backgroundColor: hover ? '#ff97a8' : '#3a3a3a' },
+        from: { opacity: 1, transform: 'translateX(62vw)' },
         config: { tension: 200, friction: 12 }
     });
 
