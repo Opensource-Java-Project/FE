@@ -92,6 +92,7 @@ const useAuth = () => {
             } else {
 
                 console.log("로그인 인증 실패");
+                return 401;
             }
         } catch (error) {
             console.error('Login failed:', error);
