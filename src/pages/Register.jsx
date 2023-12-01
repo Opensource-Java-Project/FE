@@ -235,7 +235,7 @@ const Register = () => {
         </Container>
 
         {/* 회원가입 성공 모달 */}
-        {showModal && (
+        {!showModal && (
             <div css={overlayStyle}>
                 <ModalContent onClick={(e) => e.stopPropagation()}>
                     <h2>회원가입 성공</h2>

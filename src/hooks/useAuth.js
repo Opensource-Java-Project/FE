@@ -47,14 +47,17 @@ const useAuth = () => {
         try {
             // 백엔드 로그아웃 엔드포인트와 통신
             // 헤더에 토큰을 포함시켜 보냄
-            await instance.post('/logout',{},{headers: {'Authorization': `Bearer ${token}`}});
+            const response = await instance.post('/logout',{},{headers: {'Authorization': `Bearer ${token}`}});
             // 세션 파기 요청
-
-            localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
-            localStorage.removeItem('userId'); // userId 파기
-            setLoggedIn(false); // 로그아웃 상태 업데이트
-            setUser(null);
-            navigate('/');
+            if (response.status === 200) {
+                localStorage.removeItem('LoggedInToken'); // 로그인 토큰 파기
+                localStorage.removeItem('userId'); // userId 파기
+                setLoggedIn(false); // 로그아웃 상태 업데이트
+                setUser(null); // 유저 상태 초기화
+                navigate('/');
+            } else {
+                console.log("로그아웃 실패");
+            }
 
         } catch (error) {
             console.error('Logout failed:', error);
@@ -80,7 +83,7 @@ const useAuth = () => {
 
 
 
-                localStorage.setItem('isLoggedInToken', token);  // 로그인 인증 로컬 스토리지
+                localStorage.setItem('LoggedInToken', token);  // 로그인 인증 로컬 스토리지
                 setUser(userId);
                 setLoggedIn(true);
                 // localStorage.setItem('userId', userId); // 해당 사용자 인증 로컬 스토리지, 해당 코드 zustand로 대체 따라서 안씀
