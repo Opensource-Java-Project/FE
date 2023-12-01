@@ -104,8 +104,6 @@ const Login = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
 
-
-        //
         // //test
         // const response= 200;
 

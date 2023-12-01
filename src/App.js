@@ -19,6 +19,8 @@ const router = createBrowserRouter([
     { path: '/upload', element: <><Layout><Upload/></Layout></>}
 ]);
 
+
+
 // font
 const globalStyles = css`
   body, button {
