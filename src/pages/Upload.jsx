@@ -171,8 +171,8 @@ const Upload = () => {
     const handleSubmit = async () => {
 
         //test
-        setMessage('업로드 성공');
-        navigate('/');
+        // setMessage('업로드 성공');
+        // navigate('/');
 
 
         // 멀티 파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐
