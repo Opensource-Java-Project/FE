@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import {useUserStore} from "../../../../store/useUserStore";
 import {useNavigate} from "react-router-dom";
 import useMessageStore from "../../../../store/useMessageStore";
+import useLoggedInStore from "../../../../store/useLoggedInStore";
 
 const StyledButton = styled(animated.button)`
   padding: 20px 60px;
@@ -75,7 +76,7 @@ const MSG = styled.div`
 const UploadButton = () => {
     const [hover, setHover] = React.useState(false);
     const [active, setActive] = React.useState(false);
-    const userId = useUserStore(state => state.userId);
+    const isLoggedIn = useLoggedInStore(state => state.isLoggedIn);
     const navigate = useNavigate();
 
 
@@ -110,7 +111,7 @@ const UploadButton = () => {
     // 이벤트 핸들러
     const submitHandler = () => {
         // 로그인 상태 확인
-        if (!userId) {
+        if (!isLoggedIn) {
             const isRedirect = window.confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
             if (isRedirect) {
                 navigate('/login');
