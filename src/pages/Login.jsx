@@ -136,6 +136,10 @@ const Login = () => {
         setMessage('');
     }
 
+    // 로고 이미지 클릭 핸들러
+    const logoImgHandler = () => {
+        navigate('/');
+    };
 
     // 메시지 애니메이션
     const msgAnimation = useSpring({
@@ -148,7 +152,7 @@ const Login = () => {
         <>
             <form onSubmit={submitHandler}>
                 <LoginWrapper>
-                    <LogoImage src={"/asset/img/logo.png"} alt={"logoImg"} />
+                    <LogoImage src={"/asset/img/logo.png"} alt={"logoImg"} onClick={logoImgHandler}/>
                     <div>
                         <InputDiv>
                             <Input type="email" minLength={7} maxLength={21} value={enteredId} placeholder="Email" onChange={idHandler} onFocus={handleFocus} />
