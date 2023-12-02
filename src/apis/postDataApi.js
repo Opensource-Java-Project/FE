@@ -21,7 +21,7 @@ export const postLogin = async (email, password) => {
 
 // 예약하기 api
 export const postDate = async (reservationData, postId, setOpen) => {
-        return await instance.post('/reservations', {
+        return await instance.post('/reservation', {
             boardIndex: postId, // 게시글 ID는 함수의 파라미터로 전달됩니다.
             ...reservationData
         });
