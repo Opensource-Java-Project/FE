@@ -36,6 +36,8 @@ const useAuth = () => {
         // 로그아웃 시 데이터 베이스 토큰 파기를 위해 데이터 보내기 위한 데이터
         const token = localStorage.getItem('isLoggedInToken');
 
+        // 데이터 확인 테스트 로그
+        console.log('로그아웃 요청시 보낼 토큰 값이 있는지 :', token);
 
         //test, false = logut 상태, true = login상태
         // localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
@@ -78,11 +80,12 @@ const useAuth = () => {
             if (response.data.auth === true) {
                 const token = response.data.Session_Token; // 백엔드에서 생성한 토큰 저장
 
+                // 데이터 확인 테스트 콘솔
+                console.log('로그인 완료', response);
+
+
                 // 백엔드 연결
                 const userId = response.data.memberEmail;
-
-
-
                 localStorage.setItem('LoggedInToken', token);  // 로그인 인증 로컬 스토리지
                 setUser(userId);
                 setLoggedIn(true);
