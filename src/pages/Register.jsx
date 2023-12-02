@@ -126,6 +126,13 @@ const Register = () => {
     // 로그인 쿠키 확인 후 있다면 /main으로
     useLoggedInRedirect('/');
 
+
+    // 아이디 로그인 상태 초기화
+    useEffect(()=>{
+        setEnteredId('');
+        setEnteredPassword('');
+    },[]);
+
     // ID 입력 변경 핸들러
     const idHandler = (event) => {
         setEnteredId(event.target.value);

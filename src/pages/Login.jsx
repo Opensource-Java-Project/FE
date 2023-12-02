@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLoginStore } from "../store/useUserInputStore";
 import {useLoggedInRedirect} from "../hooks/useLoggedInRedirect";
@@ -73,7 +73,6 @@ const MSGLabel = styled.label`
 
 
 const Login = () => {
-
     // userState
     const { enteredId, setEnteredId, enteredPassword, setEnteredPassword } = useUserLoginStore()
     // msg state
@@ -83,6 +82,14 @@ const Login = () => {
 
     // 로그인 쿠키 확인 후 있다면 /으로
     useLoggedInRedirect('/');
+
+    // 아이디 로그인 상태 초기화
+    useEffect(()=>{
+        setEnteredId('');
+        setEnteredPassword('');
+    },[]);
+
+
 
     // 로그인 훅
     const { login } = useAuth();
