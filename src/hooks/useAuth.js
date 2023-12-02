@@ -85,7 +85,7 @@ const useAuth = () => {
 
 
                 // 백엔드 연결
-                const userId = response.data.memberEmail;
+                const userId = response.data.userId;
                 localStorage.setItem('LoggedInToken', sessionToken);  // 로그인 인증 로컬 스토리지
                 setUser(userId);
                 setLoggedIn(true);
