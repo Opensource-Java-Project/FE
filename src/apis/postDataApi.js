@@ -21,7 +21,7 @@ export const postLogin = async (email, password) => {
 
 // 예약하기 api
 export const postDate = async (reservationData, postId, setOpen) => {
-        return await instance.post('/reservations', {
+        return await instance.post('/reservation', {
             boardIndex: postId, // 게시글 ID는 함수의 파라미터로 전달됩니다.
             ...reservationData
         });
@@ -34,6 +34,7 @@ export const postDate = async (reservationData, postId, setOpen) => {
 // 멀티파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐.
 export const postUpload = async (formData) => {
         return await instance.post('/upload', formData);
+        console.log("formData : ", formData);
 };
 
 
