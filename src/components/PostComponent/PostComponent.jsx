@@ -60,3 +60,5 @@ export const PostComponent = ({ boardIndex, boardTitle, boardPrice, boardFileInd
 
     );
 };
+
+// TODO: PostComponent와 MyPostComponent와 실질적 기능은똑같으므로 CSS만 다르게 하여 재사용 가능한 컴포넌트를 만들어야 함

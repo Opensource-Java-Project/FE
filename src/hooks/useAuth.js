@@ -40,11 +40,11 @@ const useAuth = () => {
         console.log('로그아웃 요청시 보낼 토큰 값이 있는지 :', sessionToken);
 
         //test, false = logut 상태, true = login상태
-        localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
-        localStorage.removeItem('userId'); // userId 파기
-        setLoggedIn(false); // 로그아웃 상태 업데이트
-        setUser(null);
-        navigate('/login');
+        // localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
+        // localStorage.removeItem('userId'); // userId 파기
+        // setLoggedIn(false); // 로그아웃 상태 업데이트
+        // setUser(null);
+        // navigate('/login');
 
         try {
             // 백엔드 로그아웃 엔드포인트와 통신
@@ -70,9 +70,9 @@ const useAuth = () => {
     const login = async (email, password) => {
 
         // test for userId
-        const userId = "wns2349@naver.com";
-        setUser(userId);
-        setLoggedIn(true);
+        // const userId = "wns2349@naver.com";
+        // setUser(userId);
+        // setLoggedIn(true);
 
         try {
             const response = await postLogin(email, password); // 로그인 api

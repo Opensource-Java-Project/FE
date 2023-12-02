@@ -1,29 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useUserStore } from '../store/useUserStore'; // 실제 위치에 맞게 경로 수정
-import { Link } from 'react-router-dom';
 import styled from "@emotion/styled";
-import {PostComponent} from "../components/PostComponent";
+import {MyPostComponent} from '../components/MyPostComponent'
 
 const Wrapper = styled.div`
-  padding: 0 20px; /* 양 옆에 20px의 패딩을 적용 */
-  max-width: 1200px; /* 최대 너비 설정 */
-  margin: 120px auto; /* 중앙 정렬 */
+  display: grid;
+  grid-template-columns: 250px 1fr 250px;
+  margin-top: 150px;
   width: 100%;
+`;
+const Hello = styled.label`
+  font-size: 35px;
+  letter-spacing: 1px;
+  //margin-left: 15px;
+  margin-bottom: 50px;
+  grid-column: 2/3;
+  background-color: pink;
+  border-radius: 10px;
+  padding: 10px;
+  
 `;
 
 const PostWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 10px;
-  width: 100%; /* 최대 너비를 100%로 설정하여 Wrapper의 너비에 맞춥니다. */
+  grid-column: 2/3;
   max-width: 1200px; /* 컨텐츠의 최대 너비를 설정합니다. 필요에 따라 조정 가능합니다. */
-  margin: 0 auto; /* 중앙 정렬을 위해 자동 마진을 사용합니다. */
+`;
+
+const NothingLabel = styled.label`
+  position: absolute;
+  font-size: 20px;
+  transform: translateX(360%);
+  margin-top: 200px;
 `;
 
 const MyPage = () => {
     const [posts, setPosts] = useState([]); // 여러 데이터를 저장할 상태
-    const {userId} = useUserStore(); // Zustand를 통해 유저 ID를 가져옵니다.
+    const userId = useUserStore(state => state.userId);
 
     useEffect(() => {
         // 더미 데이터를 posts 상태로 설정합니다.
@@ -44,15 +56,34 @@ const MyPage = () => {
             // 나머지 더미 데이터들...
         ];
         setPosts(data);
+
+        //백엔드 연결
+        // const fetchPosts = async () => {
+        //     try {
+        //         const data = await getMyPostList(userId);
+        //         setPosts(data);
+        //     } catch (error) {
+        //         console.error('게시글 불러오기 실패:', error);
+        //     }
+        // };
+        // fetchPosts();
+
     }, []); // 최초 렌더링 시에만 실행되도록 빈 배열 전달
+
+
 
     return (
 
         <Wrapper>
+            <Hello>[{userId}]님의 물건들이에요!</Hello>
             <PostWrapper>
-                {posts.map(post => (
-                    <PostComponent key={post.boardIndex} {...post} />
-                ))}
+                {posts !== undefined ? (
+                    posts.map(post => (
+                        <MyPostComponent key={post.boardIndex} {...post} />
+                    ))
+                ) : (
+                    <NothingLabel>저의 게시물이 없습니다.</NothingLabel>
+                )}
             </PostWrapper>
         </Wrapper>
 
