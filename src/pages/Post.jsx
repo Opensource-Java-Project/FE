@@ -180,7 +180,7 @@ const Post = () => {
         // 더미 데이터 게시글
         const dummyData = [
             {
-                userId: "wns2349@naver.com",
+                memberEmail: "wns2349@naver.com",
                 postId: 1,
                 boardTitle: "게시글 제목",
                 boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
@@ -189,7 +189,7 @@ const Post = () => {
                 reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }, { start: '2023-11-30', end:'2023-11-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
             },
             {
-                userId: "wns1234@naver.com",
+                memberEmail: "wns1234@naver.com",
                 postId: 2,
                 boardTitle: "게시글 제목2",
                 boardImage: ["/asset/img/logo.png"],
@@ -221,7 +221,7 @@ const Post = () => {
 
 
     // 사용자 인증 상태 확인 후 맞다면 상세메시지 표시
-    const isPostAuth = postAuth === post.userId;
+    const isPostAuth = postAuth === post.memberEmail;
 
 
 
