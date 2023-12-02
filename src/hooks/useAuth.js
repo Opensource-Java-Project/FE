@@ -34,10 +34,10 @@ const useAuth = () => {
     // 로그아웃
     const logout = async () => {
         // 로그아웃 시 데이터 베이스 토큰 파기를 위해 데이터 보내기 위한 데이터
-        const token = localStorage.getItem('isLoggedInToken');
+        const sessionToken = localStorage.getItem('LoggedInToken');
 
         // 데이터 확인 테스트 로그
-        console.log('로그아웃 요청시 보낼 토큰 값이 있는지 :', token);
+        console.log('로그아웃 요청시 보낼 토큰 값이 있는지 :', sessionToken);
 
         //test, false = logut 상태, true = login상태
         // localStorage.removeItem('isLoggedInToken'); // 로그인 토큰 파기
@@ -49,7 +49,7 @@ const useAuth = () => {
         try {
             // 백엔드 로그아웃 엔드포인트와 통신
             // 헤더에 토큰을 포함시켜 보냄
-            const response = await instance.post('/logout',{},{headers: {'Authorization': `Bearer ${token}`}});
+            const response = await instance.post('/logout',{},{headers: {'Authorization': `Bearer ${sessionToken}`}});
             // 세션 파기 요청
             if (response.status === 200) {
                 localStorage.removeItem('LoggedInToken'); // 로그인 토큰 파기
