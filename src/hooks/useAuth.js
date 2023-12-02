@@ -78,7 +78,7 @@ const useAuth = () => {
             const response = await postLogin(email, password); // 로그인 api
 
             if (response.data.auth === true) {
-                const token = response.data.Session_Token; // 백엔드에서 생성한 토큰 저장
+                const token = response.data.sessionToken; // 백엔드에서 생성한 토큰 저장
 
                 // 데이터 확인 테스트 콘솔
                 console.log('로그인 완료', response);
