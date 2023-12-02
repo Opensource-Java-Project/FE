@@ -37,5 +37,3 @@ export const postUpload = async (formData) => {
         console.log("formData : ", formData);
 };
 
-
-// try...catch 문 제거하고 각 API 호출할 때 try...catch 문을 사용하여 에러를 잡으려고 했으나 수정하기 매우 귀찮으므로 패스.
