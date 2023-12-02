@@ -105,15 +105,7 @@ export const Reservation = ({ onSave, onClose, reservations}) => {
     }, [reservations]);
 
 
-    // Post.jsx에서 그냥 받아옴
-    // useEffect(() => {
-    //     // 백엔드에서 예약된 날짜들을 가져오는 로직
-    //     const fetchReservedDates = async () => {
-    //         const dates = await getReservedDates();
-    //         setReservedDates(dates.map(d => new Date(d)));
-    //     };
-    //     fetchReservedDates();
-    // }, [getReservedDates]);
+
 
     const isDateReserved = (date) => {
         return reservedDates.some(reservedDate =>
@@ -219,7 +211,7 @@ export const Reservation = ({ onSave, onClose, reservations}) => {
         const formattedRange = {
             start: moment(selectedRange.start).format('YYYY-MM-DD'),
             end: end,
-            content
+            content: content
         };
 
         onSave(formattedRange);
