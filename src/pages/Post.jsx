@@ -181,7 +181,7 @@ const Post = () => {
         const dummyData = [
             {
                 memberEmail: "wns2349@naver.com",
-                postId: 1,
+                boardIndex: 1,
                 boardTitle: "게시글 제목",
                 boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
                 boardContents: "게시글 내용",
@@ -190,7 +190,7 @@ const Post = () => {
             },
             {
                 memberEmail: "wns1234@naver.com",
-                postId: 2,
+                boardIndex: 2,
                 boardTitle: "게시글 제목2",
                 boardImage: ["/asset/img/logo.png"],
                 boardContents: "게시글 내용2",
@@ -251,7 +251,7 @@ const Post = () => {
 
 
     return (
-        <Container key={post.postId}>
+        <Container key={post.boardIndex}>
             <Contents>
                 <ImageContainer>
                     <Img src={post.boardImage[currentImageIndex]} alt="Post" width={"500px"}/>
