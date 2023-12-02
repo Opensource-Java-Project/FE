@@ -26,54 +26,54 @@ const Main = () => {
 
 
         // 더미 데이터
-        // const data = [
-        //         {
-        //             memberEmail: "wns2349@naver.co",
-        //             boardIndex: 1,
-        //             boardTitle: "post 1",
-        //             boardPrice: "1000",
-        //             boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScY1JCmDBElwyYIfoEUdJSms3eIZqG8b7-Ig&usqp=CAU"
-        //     },{
-        //         memberEmail: "wns2349@na",
-        //         boardIndex: 2,
-        //         boardTitle: "post 2",
-        //         boardPrice: "10000",
-        //         boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
-        //     },
-        //     {
-        //         memberEmail: "wns2349@na",
-        //         boardIndex: 3,
-        //         boardTitle: "post 3",
-        //         boardPrice: "100",
-        //         boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
-        //     },
-        //     {
-        //         memberEmail: "wns2349@na",
-        //         boardIndex: 4,
-        //         boardTitle: "post 4",
-        //         boardPrice: "1000000",
-        //         boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
-        //     },
-        //     {
-        //         memberEmail: "wns2349@na",
-        //         boardIndex: 5,
-        //         boardTitle: "post 5",
-        //         boardPrice: "100000000",
-        //         boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
-        //     }
-        // ];
-        // setPosts(data);
+        const data = [
+                {
+                    memberEmail: "wns2349@naver.co",
+                    boardIndex: 1,
+                    boardTitle: "post 1",
+                    boardPrice: "1000",
+                    boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScY1JCmDBElwyYIfoEUdJSms3eIZqG8b7-Ig&usqp=CAU"
+            },{
+                memberEmail: "wns2349@na",
+                boardIndex: 2,
+                boardTitle: "post 2",
+                boardPrice: "10000",
+                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
+            },
+            {
+                memberEmail: "wns2349@na",
+                boardIndex: 3,
+                boardTitle: "post 3",
+                boardPrice: "100",
+                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
+            },
+            {
+                memberEmail: "wns2349@na",
+                boardIndex: 4,
+                boardTitle: "post 4",
+                boardPrice: "1000000",
+                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
+            },
+            {
+                memberEmail: "wns2349@na",
+                boardIndex: 5,
+                boardTitle: "post 5",
+                boardPrice: "100000000",
+                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
+            }
+        ];
+        setPosts(data);
 
         //백엔드 연결
-        const fetchPosts = async () => {
-            try {
-                const data = await getPostList();
-                setPosts(data);
-            } catch (error) {
-                console.error('게시글 불러오기 실패:', error);
-            }
-        };
-        fetchPosts();
+        // const fetchPosts = async () => {
+        //     try {
+        //         const data = await getPostList();
+        //         setPosts(data);
+        //     } catch (error) {
+        //         console.error('게시글 불러오기 실패:', error);
+        //     }
+        // };
+        // fetchPosts();
     }, []);
 
     return (

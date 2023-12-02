@@ -34,6 +34,7 @@ export const postDate = async (reservationData, postId, setOpen) => {
 // 멀티파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐.
 export const postUpload = async (formData) => {
         return await instance.post('/upload', formData);
+        console.log("formData : ", formData);
 };
 
 
