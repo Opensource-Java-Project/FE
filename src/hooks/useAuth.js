@@ -78,7 +78,7 @@ const useAuth = () => {
             const response = await postLogin(email, password); // 로그인 api
 
             if (response.data.auth === true) {
-                const token = response.data.sessionToken; // 백엔드에서 생성한 토큰 저장
+                const sessionToken = response.data.token; // 백엔드에서 생성한 토큰 저장
 
                 // 데이터 확인 테스트 콘솔
                 console.log('로그인 완료', response);
@@ -86,7 +86,7 @@ const useAuth = () => {
 
                 // 백엔드 연결
                 const userId = response.data.memberEmail;
-                localStorage.setItem('LoggedInToken', token);  // 로그인 인증 로컬 스토리지
+                localStorage.setItem('LoggedInToken', sessionToken);  // 로그인 인증 로컬 스토리지
                 setUser(userId);
                 setLoggedIn(true);
                 // localStorage.setItem('userId', userId); // 해당 사용자 인증 로컬 스토리지, 해당 코드 zustand로 대체 따라서 안씀
