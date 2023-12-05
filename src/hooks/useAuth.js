@@ -70,9 +70,9 @@ const useAuth = () => {
     const login = async (email, password) => {
 
         // test for userId
-        // const userId = "wns2349@naver.com";
-        // setUser(userId);
-        // setLoggedIn(true);
+        const userId = "wns2349@naver.com";
+        setUser(userId);
+        setLoggedIn(true);
 
         try {
             const response = await postLogin(email, password); // 로그인 api

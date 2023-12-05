@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Hello = styled.label`
-  font-size: 35px;
+  font-size: 15px;
   letter-spacing: 1px;
   //margin-left: 15px;
   margin-bottom: 50px;
@@ -18,9 +18,8 @@ const Hello = styled.label`
   background-color: pink;
   border-radius: 10px;
   padding: 10px;
-  
+  width: 170px;
 `;
-
 const PostWrapper = styled.div`
   grid-column: 2/3;
   max-width: 1200px; /* 컨텐츠의 최대 너비를 설정합니다. 필요에 따라 조정 가능합니다. */
