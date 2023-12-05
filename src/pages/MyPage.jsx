@@ -1,28 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { useUserStore } from '../store/useUserStore'; // 실제 위치에 맞게 경로 수정
 import styled from "@emotion/styled";
-import {MyPostComponent} from '../components/MyPostComponent'
+import { MyPostComponent } from '../components/MyPostComponent';
+import { useSpring, animated } from '@react-spring/web';
+
+const ProfileWrapper = styled.div`
+  display: flex; /* 세로 정렬을 위해 flex로 변경 */
+  flex-direction: column; /* 아이템을 세로로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  margin-top: 150px;
+  //margin-bottom: 400px;
+  margin-left: 25vw;
+  width: 700px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 70px 30px 150px 30px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+`;
+
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr 250px;
   margin-top: 150px;
   width: 100%;
+  align-items: center;
 `;
-const Hello = styled.label`
+
+const ProfileImg = styled.img`
+  width: 120px;
+  height: 120px;
+`;
+
+const Hello = styled(animated.label)`
   font-size: 15px;
   letter-spacing: 1px;
-  //margin-left: 15px;
-  margin-bottom: 50px;
-  grid-column: 2/3;
-  background-color: pink;
-  border-radius: 10px;
+  //margin-bottom: 50px;
+  margin-top: 1px;
   padding: 10px;
   width: 170px;
 `;
+
 const PostWrapper = styled.div`
   grid-column: 2/3;
-  max-width: 1200px; /* 컨텐츠의 최대 너비를 설정합니다. 필요에 따라 조정 가능합니다. */
+  max-width: 1200px;
 `;
 
 const NothingLabel = styled.label`
@@ -32,12 +53,20 @@ const NothingLabel = styled.label`
   margin-top: 200px;
 `;
 
+const ProfileContent = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr; /* ProfileImg와 Hello를 그리드로 배치 */
+  grid-column-gap: 10px; /* 간격 조정 */
+  align-items: center; /* 세로 정렬 */
+  margin-bottom: 60px;
+`;
+
 const MyPage = () => {
-    const [posts, setPosts] = useState([]); // 여러 데이터를 저장할 상태
+    const [posts, setPosts] = useState([]);
     const userId = useUserStore(state => state.userId);
+    const props = useSpring({ opacity: 1, from: { opacity: 0 } });
 
     useEffect(() => {
-        // 더미 데이터를 posts 상태로 설정합니다.
         const data = [
             {
                 memberEmail: "wns2349@naver.co",
@@ -55,39 +84,27 @@ const MyPage = () => {
             // 나머지 더미 데이터들...
         ];
         setPosts(data);
-
-        //백엔드 연결
-        // const fetchPosts = async () => {
-        //     try {
-        //         const data = await getMyPostList(userId);
-        //         setPosts(data);
-        //     } catch (error) {
-        //         console.error('게시글 불러오기 실패:', error);
-        //     }
-        // };
-        // fetchPosts();
-
-    }, []); // 최초 렌더링 시에만 실행되도록 빈 배열 전달
-
-
+    }, []);
 
     return (
-
         <Wrapper>
-            <Hello>[{userId}]님의 물건들이에요!</Hello>
-            <PostWrapper>
-                {posts !== undefined ? (
-                    posts.map(post => (
-                        <MyPostComponent key={post.boardIndex} {...post} />
-                    ))
-                ) : (
-                    <NothingLabel>저의 게시물이 없습니다.</NothingLabel>
-                )}
-            </PostWrapper>
+            <ProfileWrapper>
+                <ProfileContent>
+                    <ProfileImg src={'/asset/img/profileImage.png'}/>
+                    <Hello style={props}>{userId}</Hello>
+                </ProfileContent>
+                <PostWrapper>
+                    {posts.length > 0 ? (
+                        posts.map(post => (
+                            <MyPostComponent key={post.boardIndex} {...post} />
+                        ))
+                    ) : (
+                        <NothingLabel>저의 게시물이 없습니다.</NothingLabel>
+                    )}
+                </PostWrapper>
+            </ProfileWrapper>
         </Wrapper>
-
     );
 };
-
 
 export default MyPage;
