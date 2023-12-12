@@ -91,7 +91,7 @@ const MyPage = () => {
             <ProfileWrapper>
                 <ProfileContent>
                     <ProfileImg src={'/asset/img/profileImage.png'}/>
-                    <Hello style={props}>{userId}</Hello>
+                    <Hello style={props}>{userId}님의 게시물</Hello>
                 </ProfileContent>
                 <PostWrapper>
                     {posts.length > 0 ? (
