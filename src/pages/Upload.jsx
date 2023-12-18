@@ -185,7 +185,7 @@ const Upload = () => {
         formData.append('price', enteredPrice);
 
         const userId = localStorage.getItem('userId');
-        formData.append('userId', userId);
+        formData.append('memberEmail', userId);
 
         try {
             const response = await postUpload(formData);

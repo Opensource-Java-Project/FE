@@ -4,7 +4,7 @@ import instance from "./instance";
 // postId 포함
 export const getPost = async (postId) => {
     try {
-        const response = await instance.get(`/getPost${postId}`);
+        const response = await instance.get(`/getPost/${postId}`);
         return response.data;
     } catch (error) {
         console.error('API 요청 중 오류 발생:', error);

@@ -163,51 +163,51 @@ const Post = () => {
 
 
     // 백엔드 연결
-    useEffect(() => {
-        const fetchPost = async () => {
-            const data = await getPost(postId); // postId를 사용하여 특정 게시글 데이터 가져오기
-            setPost(data);
-
-
-        };
-        fetchPost();
-
-    }, [postId]);
+    // useEffect(() => {
+    //     const fetchPost = async () => {
+    //         const data = await getPost(postId); // postId를 사용하여 특정 게시글 데이터 가져오기
+    //         setPost(data);
+    //
+    //
+    //     };
+    //     fetchPost();
+    //
+    // }, [postId]);
 
 
 
     // 더미 데이터 테스트
-    // useEffect(() => {
-    //     // 더미 데이터 게시글
-    //     const dummyData = [
-    //         {
-    //             memberEmail: "wns2349@naver.com",
-    //             boardIndex: 1,
-    //             boardTitle: "게시글 제목",
-    //             boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
-    //             boardContents: "게시글 내용",
-    //             boardPrice:"5000원",
-    //             reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }, { start: '2023-11-30', end:'2023-11-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
-    //         },
-    //         {
-    //             memberEmail: "wns1234@naver.com",
-    //             boardIndex: 2,
-    //             boardTitle: "게시글 제목2",
-    //             boardImage: ["/asset/img/logo.png"],
-    //             boardContents: "게시글 내용2",
-    //             boardPrice:"5,000,000원",
-    //             reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }]
-    //         }
-    //     ];
-    //     const fetchPost = () => {
-    //
-    //         // postId에 해당하는 게시글 찾기
-    //         const foundPost = dummyData.find(p => p.boardIndex === parseInt(postId));
-    //         setPost(foundPost); // 찾은 게시글을 상태로 설정
-    //
-    //     };
-    //     fetchPost();
-    // }, []);
+    useEffect(() => {
+        // 더미 데이터 게시글
+        const dummyData = [
+            {
+                memberEmail: "wns2349@naver.com",
+                boardIndex: 1,
+                boardTitle: "게시글 제목",
+                boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
+                boardContents: "게시글 내용",
+                boardPrice:"5000원",
+                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }, { start: '2023-11-30', end:'2023-11-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
+            },
+            {
+                memberEmail: "wns1234@naver.com",
+                boardIndex: 2,
+                boardTitle: "게시글 제목2",
+                boardImage: ["/asset/img/logo.png"],
+                boardContents: "게시글 내용2",
+                boardPrice:"5,000,000원",
+                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }]
+            }
+        ];
+        const fetchPost = () => {
+
+            // postId에 해당하는 게시글 찾기
+            const foundPost = dummyData.find(p => p.boardIndex === parseInt(postId));
+            setPost(foundPost); // 찾은 게시글을 상태로 설정
+
+        };
+        fetchPost();
+    }, []);
 
 
 
