@@ -71,15 +71,15 @@ const MyPage = () => {
             {
                 memberEmail: "wns2349@naver.co",
                 boardIndex: 1,
-                boardTitle: "post 1",
-                boardPrice: "1000",
-                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScY1JCmDBElwyYIfoEUdJSms3eIZqG8b7-Ig&usqp=CAU"
+                boardTitle: "고데기",
+                boardPrice: "300",
+                boardFileIndex: "https://dnvefa72aowie.cloudfront.net/origin/article/202312/a4e7bab26e31403d2ee5af65a12e8c5edc41367a7cc3a8e0bd09357f7e5c5577.jpg?q=95&s=1440x1440&t=inside&f=webp"
             }, {
                 memberEmail: "wns2349@na",
-                boardIndex: 2,
-                boardTitle: "post 2",
-                boardPrice: "10000",
-                boardFileIndex: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxMMOlhiqWEJVNcSFzBpSfeYt2VQKeBImzg&usqp=CAU"
+                boardIndex: 3,
+                boardTitle: "승용차",
+                boardPrice: "30,000",
+                boardFileIndex: "https://dnvefa72aowie.cloudfront.net/origin/article/202311/bb57b8c3200bf77b5ad4e12f1e78239e5c7e6706461bd6154d0701390ac5ac22_1.webp?q=95&s=1440x1440&t=inside&f=webp"
             },
             // 나머지 더미 데이터들...
         ];

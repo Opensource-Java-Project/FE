@@ -183,20 +183,29 @@ const Post = () => {
             {
                 memberEmail: "wns2349@naver.com",
                 boardIndex: 1,
-                boardTitle: "게시글 제목",
-                boardImage: ["/asset/img/logo.png", "/asset/img/testPostImg.png"],
-                boardContents: "게시글 내용",
-                boardPrice:"5000원",
-                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }, { start: '2023-11-30', end:'2023-11-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
+                boardTitle: "미니벨로 클래식 자전거",
+                boardImage: ["https://dnvefa72aowie.cloudfront.net/origin/article/202311/615974e707e6bf1df84529c58bb256429e59a69f7558497593db3a924284c08d.jpg?q=95&s=1440x1440&t=inside&f=webp", "https://dnvefa72aowie.cloudfront.net/origin/article/202311/c5ca198d2980594112019af452d1ade945b9c9e0f0c15d399eb74131ec9f93bb.jpg?q=95&s=1440x1440&t=inside&f=webp", "https://dnvefa72aowie.cloudfront.net/origin/article/202311/764afbfa3c523cd095bf73db4a48f91b6bd7339f102d9a438806ba3cc578ef00.jpg?q=95&s=1440x1440&t=inside&f=webp"],
+                boardContents: "상태 좋아요. 자전거 빌려드립니다.",
+                boardPrice:"7,000",
+                reservationList: [{ start: '2023-12-25', end:'2023-12-28', content:"13시 충북대 정문에서 만나요" }, { start: '2023-12-30', end:'2023-12-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
+            },
+            {
+                memberEmail: "wns1234@naver.c",
+                boardIndex: 2,
+                boardTitle: "베이스",
+                boardImage: ["https://dnvefa72aowie.cloudfront.net/origin/article/202312/e4f27a717a568fa116b4a9f5609161ca8f6ca73811e633e978a2677a6dc9f168.jpg?q=95&s=1440x1440&t=inside&f=webp"],
+                boardContents: "조율 잘 되어 있어요.",
+                boardPrice:"3,000",
+                reservationList: [{ start: '2024-01-02', end:'2024-01-09', content:"중문에서 14시에 갈게요" }]
             },
             {
                 memberEmail: "wns1234@naver.com",
-                boardIndex: 2,
-                boardTitle: "게시글 제목2",
-                boardImage: ["/asset/img/logo.png"],
-                boardContents: "게시글 내용2",
-                boardPrice:"5,000,000원",
-                reservationList: [{ start: '2023-11-25', end:'2023-11-28', content:"13시 충북대 정문" }]
+                boardIndex: 3,
+                boardTitle: "승용차",
+                boardImage: ["https://dnvefa72aowie.cloudfront.net/origin/article/202311/bb57b8c3200bf77b5ad4e12f1e78239e5c7e6706461bd6154d0701390ac5ac22_1.webp?q=95&s=1440x1440&t=inside&f=webp"],
+                boardContents: "기름은 반납 시 채워주세요. 개인 부담입니다.",
+                boardPrice:"30,000",
+                reservationList: [{ start: '2024-01-02', end:'2024-01-09', content:"중문에서 14시에 갈게요" }]
             }
         ];
         const fetchPost = () => {

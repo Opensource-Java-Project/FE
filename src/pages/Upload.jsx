@@ -176,19 +176,48 @@ const Upload = () => {
 
 
         // 멀티 파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐
+        // const formData = new FormData();
+        // for (let i = 0; i < selectedImages.length; i++) {
+        //     formData.append('boardImages', selectedImages[i]);
+        // }
+        // formData.append('boradTitle', enteredTitle);
+        // formData.append('boardContents', enteredContent);
+        // formData.append('boardPrice', enteredPrice);
+        //
+        // const userId = localStorage.getItem('userId');
+        // formData.append('memberEmail', userId);
+        //
+        // try {
+        //     const response = await postUpload(formData);
+        //     if (response.status === 200) {
+        //         setMessage('업로드 성공');
+        //         navigate('/');
+        //     } else {
+        //         setMessage('업로드 실패');
+        //     }
+        // } catch (error) {
+        //     console.error('에러:', error);
+        // }
+
         const formData = new FormData();
         for (let i = 0; i < selectedImages.length; i++) {
-            formData.append('images', selectedImages[i]);
+            formData.append('boardImages', selectedImages[i]);
         }
-        formData.append('title', enteredTitle);
-        formData.append('content', enteredContent);
-        formData.append('price', enteredPrice);
-
+        formData.append('boardTitle', enteredTitle);
+        formData.append('boardContents', enteredContent);
+        formData.append('boardPrice', enteredPrice);
         const userId = localStorage.getItem('userId');
         formData.append('memberEmail', userId);
 
+// FormData를 JSON으로 변환
+        const jsonObject = {};
+        formData.forEach((value, key) => {
+            jsonObject[key] = value;
+        });
+        const jsonData = JSON.stringify(jsonObject);
+
         try {
-            const response = await postUpload(formData);
+            const response = await postUpload(jsonData);
             if (response.status === 200) {
                 setMessage('업로드 성공');
                 navigate('/');
