@@ -174,6 +174,20 @@ const Post = () => {
     //
     // }, [postId]);
 
+    function getReservationData() {
+        const data = localStorage.getItem('userReservStore');
+        if (data) {
+            const parsedData = JSON.parse(data);  // 데이터를 파싱합니다.
+            // 데이터가 유효한지 검사합니다.
+            if (parsedData.state && parsedData.state.start && parsedData.state.end && parsedData.state.content) {
+                return parsedData.state;  // 'state' 속성만 반환합니다.
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
 
     // 더미 데이터 테스트
@@ -187,7 +201,7 @@ const Post = () => {
                 boardImage: ["https://dnvefa72aowie.cloudfront.net/origin/article/202311/615974e707e6bf1df84529c58bb256429e59a69f7558497593db3a924284c08d.jpg?q=95&s=1440x1440&t=inside&f=webp", "https://dnvefa72aowie.cloudfront.net/origin/article/202311/c5ca198d2980594112019af452d1ade945b9c9e0f0c15d399eb74131ec9f93bb.jpg?q=95&s=1440x1440&t=inside&f=webp", "https://dnvefa72aowie.cloudfront.net/origin/article/202311/764afbfa3c523cd095bf73db4a48f91b6bd7339f102d9a438806ba3cc578ef00.jpg?q=95&s=1440x1440&t=inside&f=webp"],
                 boardContents: "상태 좋아요. 자전거 빌려드립니다.",
                 boardPrice:"7,000",
-                reservationList: [{ start: '2023-12-25', end:'2023-12-28', content:"13시 충북대 정문에서 만나요" }, { start: '2023-12-30', end:'2023-12-30', content:"15시 추포" },] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
+                reservationList: [{ start: '2023-12-25', end:'2023-12-28', content:"13시 충북대 정문에서 만나요" }, { start: '2023-12-30', end:'2023-12-30', content:"15시 추포" }] // 받아올 때 유저인증을 미리 하고 받아오는 데이터를 다르게 해야 보안상 문제가 안생길 듯
             },
             {
                 memberEmail: "wns1234@naver.c",
@@ -206,15 +220,34 @@ const Post = () => {
                 boardContents: "기름은 반납 시 채워주세요. 개인 부담입니다.",
                 boardPrice:"30,000",
                 reservationList: [{ start: '2024-01-02', end:'2024-01-09', content:"중문에서 14시에 갈게요" }]
+            },
+            {
+                memberEmail: "wns1234@naver.com",
+                boardIndex: 11,
+                boardTitle: "카메라",
+                boardImage: ["/asset/img/camera.png"],
+                boardContents: "깨끗이 사용해주세요.",
+                boardPrice:"500",
+                reservationList: []
             }
+
+
         ];
         const fetchPost = () => {
+            const reservationData = getReservationData();
+            if (reservationData) {
+                dummyData[0].reservationList.push(reservationData);
+                console.log(dummyData[0]);
+            }
 
             // postId에 해당하는 게시글 찾기
             const foundPost = dummyData.find(p => p.boardIndex === parseInt(postId));
             setPost(foundPost); // 찾은 게시글을 상태로 설정
 
         };
+
+
+
         fetchPost();
     }, []);
 
@@ -238,24 +271,30 @@ const Post = () => {
     // 예약 테이블
     const ReservationTable = ({ reservations, isPostAuth }) => {
         return (
-            <StyledTable>
-                <thead>
-                <tr>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    {isPostAuth && <th>Content</th>}
-                </tr>
-                </thead>
-                <tbody>
-                {reservations.map((reservation, index) => (
-                    <TableRow key={index}>
-                        <TableCell>{reservation.start}</TableCell>
-                        <TableCell>{reservation.end}</TableCell>
-                        {isPostAuth && <TableCell>{reservation.content}</TableCell>}
-                    </TableRow>
-                ))}
-                </tbody>
-            </StyledTable>
+<>
+    {reservations && reservations.length > 0 ? (
+        <StyledTable>
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                {isPostAuth && <th>Content</th>}
+            </tr>
+            </thead>
+            <tbody>
+            {reservations.map((reservation, index) => (
+                <TableRow key={index}>
+                    <TableCell>{reservation.start}</TableCell>
+                    <TableCell>{reservation.end}</TableCell>
+                    {isPostAuth && <TableCell>{reservation.content}</TableCell>}
+                </TableRow>
+            ))}
+            </tbody>
+        </StyledTable>
+    ) : (
+        <p>현재 예약자가 없습니다.</p>
+    )}
+</>
         );
     };
 
@@ -275,7 +314,7 @@ const Post = () => {
                 <h1>{post.boardTitle}</h1>
                 <hr/>
                 <ContentP>{post.boardContents}</ContentP>
-                <PricesLabel>{post.boardPrice}</PricesLabel>
+                <PricesLabel>{post.boardPrice}원/일</PricesLabel>
                 <ReservationDiv>
                     <label>예약 현황</label>
                     <hr/>

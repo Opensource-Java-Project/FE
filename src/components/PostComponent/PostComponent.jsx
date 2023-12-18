@@ -54,7 +54,7 @@ export const PostComponent = ({ boardIndex, boardTitle, boardPrice, boardFileInd
             <Wrapper>
                 <Img src={boardFileIndex} alt={boardTitle}></Img>
                 <Title>{boardTitle}</Title>
-                <Price>{boardPrice}원</Price>
+                <Price>{boardPrice}원/일</Price>
             </Wrapper>
         </StyledLink>
 

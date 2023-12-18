@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { postUpload } from "../apis/postDataApi";
 import styled from "@emotion/styled";
 import useMessageStore from "../store/useMessageStore";
+import {useTestStore} from "../store/useTestStore"
 
 const UploadWrapper = styled.div`
   text-align: center;
@@ -167,12 +168,23 @@ const Upload = () => {
 
 
 
-
     const handleSubmit = async () => {
 
+        useTestStore.getState().setTestData({
+            memberEmail: "wns2349@naver.com",
+            boardIndex: 11,
+            boardTitle: enteredTitle,
+            boardPrice: enteredPrice,
+            boardFileIndex: contentImageUrl,
+        });
+
         //test
-        // setMessage('업로드 성공');
-        // navigate('/');
+        setMessage('업로드 성공');
+        navigate('/');
+
+
+
+
 
 
         // 멀티 파트/폼데이터 형식으로 보냄, 서버에서도 관리가 수월해짐
@@ -199,34 +211,9 @@ const Upload = () => {
         //     console.error('에러:', error);
         // }
 
-        const formData = new FormData();
-        for (let i = 0; i < selectedImages.length; i++) {
-            formData.append('boardImages', selectedImages[i]);
-        }
-        formData.append('boardTitle', enteredTitle);
-        formData.append('boardContents', enteredContent);
-        formData.append('boardPrice', enteredPrice);
-        const userId = localStorage.getItem('userId');
-        formData.append('memberEmail', userId);
 
-// FormData를 JSON으로 변환
-        const jsonObject = {};
-        formData.forEach((value, key) => {
-            jsonObject[key] = value;
-        });
-        const jsonData = JSON.stringify(jsonObject);
 
-        try {
-            const response = await postUpload(jsonData);
-            if (response.status === 200) {
-                setMessage('업로드 성공');
-                navigate('/');
-            } else {
-                setMessage('업로드 실패');
-            }
-        } catch (error) {
-            console.error('에러:', error);
-        }
+
     };
 
     return (

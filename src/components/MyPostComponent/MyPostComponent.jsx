@@ -71,7 +71,7 @@ export const MyPostComponent = ({ boardIndex, boardTitle, boardPrice, boardFileI
                 </ImageContainer>
                 <ContentContainer>
                     <Title>{boardTitle}</Title>
-                    <Price>{boardPrice}원</Price>
+                    <Price>{boardPrice}원/일</Price>
                 </ContentContainer>
             </Wrapper>
 

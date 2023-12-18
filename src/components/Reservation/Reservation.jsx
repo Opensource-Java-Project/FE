@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import {createRange} from "../../utils/createRange";
 import {useUserStore} from "../../store/useUserStore";
 import {useNavigate} from "react-router-dom";
+import {useTestReservStore} from "../../store/useTestReservStore";
 
 const CalenderDiv = styled.div`
   position: fixed;
@@ -181,6 +182,9 @@ export const Reservation = ({ onSave, onClose, reservations}) => {
 
     const navigate = useNavigate();
 
+
+    const { setTestReservData } = useTestReservStore();
+
     const handleSubmit = () => {
 
         // 로그인 상태 확인
@@ -214,10 +218,22 @@ export const Reservation = ({ onSave, onClose, reservations}) => {
             content: content
         };
 
-        onSave(formattedRange);
+
+        setTestReservData({
+            start: formattedRange.start,
+            end: formattedRange.end,
+            content: formattedRange.content
+        });
+
+        // onSave(formattedRange);
+
+
+
+
         console.log(formattedRange);
         onClose();
     };
+
 
     return (
         <CalenderDiv>

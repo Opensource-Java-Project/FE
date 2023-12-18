@@ -3,6 +3,8 @@ import { useUserStore } from '../store/useUserStore'; // 실제 위치에 맞게
 import styled from "@emotion/styled";
 import { MyPostComponent } from '../components/MyPostComponent';
 import { useSpring, animated } from '@react-spring/web';
+import {PostComponent} from "../components/PostComponent";
+import {useTestStore} from "../store/useTestStore";
 
 const ProfileWrapper = styled.div`
   display: flex; /* 세로 정렬을 위해 flex로 변경 */
@@ -69,22 +71,23 @@ const MyPage = () => {
     useEffect(() => {
         const data = [
             {
-                memberEmail: "wns2349@naver.co",
+                memberEmail: "wns2349@naver.com",
                 boardIndex: 1,
-                boardTitle: "고데기",
-                boardPrice: "300",
-                boardFileIndex: "https://dnvefa72aowie.cloudfront.net/origin/article/202312/a4e7bab26e31403d2ee5af65a12e8c5edc41367a7cc3a8e0bd09357f7e5c5577.jpg?q=95&s=1440x1440&t=inside&f=webp"
+                boardTitle: "미니벨로 클래식 자전거",
+                boardPrice: "7,000",
+                boardFileIndex: "https://dnvefa72aowie.cloudfront.net/origin/article/202311/615974e707e6bf1df84529c58bb256429e59a69f7558497593db3a924284c08d.jpg?q=95&s=1440x1440&t=inside&f=webp"
             }, {
-                memberEmail: "wns2349@na",
+                memberEmail: "wns2349@naver.com",
                 boardIndex: 3,
                 boardTitle: "승용차",
                 boardPrice: "30,000",
                 boardFileIndex: "https://dnvefa72aowie.cloudfront.net/origin/article/202311/bb57b8c3200bf77b5ad4e12f1e78239e5c7e6706461bd6154d0701390ac5ac22_1.webp?q=95&s=1440x1440&t=inside&f=webp"
-            },
-            // 나머지 더미 데이터들...
+            }
+
         ];
         setPosts(data);
     }, []);
+    const testData = useTestStore(state => state);
 
     return (
         <Wrapper>
@@ -101,6 +104,15 @@ const MyPage = () => {
                     ) : (
                         <NothingLabel>저의 게시물이 없습니다.</NothingLabel>
                     )}
+                    {testData.boardIndex !== 0 ? (
+                        <MyPostComponent
+                            key={testData.boardIndex}
+                            boardIndex={testData.boardIndex}
+                            boardTitle={testData.boardTitle}
+                            boardPrice={testData.boardPrice}
+                            boardFileIndex={testData.boardFileIndex}
+                        />
+                    ) : null}
                 </PostWrapper>
             </ProfileWrapper>
         </Wrapper>
